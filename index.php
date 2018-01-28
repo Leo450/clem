@@ -92,9 +92,9 @@ switch($action){
 
 				<div class="sentence-form">
 
-					<form action="<?php if($is_admin){ echo "/" . ADMIN_KEYWORD; } ?>/add" method="post">
+					<form action="" method="post">
 						<input type="text" name="new_quote">
-						<button type="submit">Oyeah</button>
+						<button type="submit">- RIEN DEDANS -</button>
 					</form>
 
 				</div>
@@ -160,7 +160,7 @@ switch($action){
 
 						<form action="<?php if($is_admin){ echo "/" . ADMIN_KEYWORD; } ?>/add" method="post">
 							<input type="text" name="new_quote">
-							<button type="submit">> TOUT DEDANS <</button>
+							<button type="submit">+ TOUT DEDANS +</button>
 						</form>
 
 					</div>
