@@ -11,6 +11,19 @@ function debounce(callback, delay){
 	}
 }
 
+
+
+
+
+
+
+function getSentenceOffsetTop($sentence)
+{
+
+	return $sentence.offset().top - $(document).scrollTop();
+
+}
+
 function scrollSentencesWrapper()
 {
 
@@ -20,23 +33,31 @@ function scrollSentencesWrapper()
 
 }
 
+
+
+function enableOpacityTransition()
+{
+
+	$('.sentences-container').addClass("transition");
+
+}
+
+function disableOpacityTransition()
+{
+
+	$('.sentences-container').removeClass("transition");
+
+}
+
 function resetSentencesStyle()
 {
 
 	$('.sentence')
-		.removeClass("main")
-		.css("opacity", .7);
+		.removeClass("main");
 
 }
 
-function getSentenceOffsetTop($sentence)
-{
-
-	return $sentence.offset().top - $(document).scrollTop();
-
-}
-
-function setSentencesAppleStyle()
+function setSentencesAppleStyle(min, toAdd)
 {
 
 	var $mainSentence = null;
@@ -47,10 +68,10 @@ function setSentencesAppleStyle()
 
 		var sentenceOffsetMouthAbs = Math.abs(mouthOffsetTop - getSentenceOffsetTop($(this)));
 
-		var newOpacity = .1;
+		var newOpacity = min;
 		if(sentenceOffsetMouthAbs < maxSentenceOffsetMouth){
 
-			newOpacity += .4 * (1 - sentenceOffsetMouthAbs / maxSentenceOffsetMouth);
+			newOpacity += toAdd * (1 - sentenceOffsetMouthAbs / maxSentenceOffsetMouth);
 
 			if(sentenceOffsetMouthAbs < minSentenceOffsetMouthAbs){
 
@@ -72,31 +93,13 @@ function setSentencesAppleStyle()
 function lockSentencesStyle()
 {
 
-	var $mainSentence = null;
+	disableScroll();
 
-	var minSentenceOffsetMouthAbs = maxSentenceOffsetMouth;
+	enableOpacityTransition();
 
-	$('.sentence').each(function(){
+	$('.quote-marker').css("opacity", 0);
 
-		var sentenceOffsetMouthAbs = Math.abs(mouthOffsetTop - getSentenceOffsetTop($(this)));
-
-		var newOpacity = .1;
-		if(sentenceOffsetMouthAbs < maxSentenceOffsetMouth){
-
-			newOpacity += .4 * (1 - sentenceOffsetMouthAbs / maxSentenceOffsetMouth);
-
-			if(sentenceOffsetMouthAbs < minSentenceOffsetMouthAbs){
-
-				minSentenceOffsetMouthAbs = sentenceOffsetMouthAbs;
-				$mainSentence = $(this);
-
-			}
-
-		}
-
-		$(this).css("opacity", newOpacity);
-
-	});
+	var $mainSentence = setSentencesAppleStyle(.1, .4);
 
 	$mainSentence.addClass("main");
 
@@ -105,6 +108,8 @@ function lockSentencesStyle()
 
 	var $sentenceScrollWrapper = $('.sentences-scroll-wrapper');
 	$sentenceScrollWrapper.stop(true, true).animate({top: parseFloat($sentenceScrollWrapper.css("top")) + scrollCorrection + "px"}, 500);
+
+	setTimeout(enableScroll, 500);
 
 }
 
@@ -126,7 +131,7 @@ function goToSentence($sentence)
 		sentencesOffset = getSentenceOffsetTop($sentence) - mouthOffsetTop;
 	}
 
-	unbindScroll();
+	disableScroll();
 
 	resetSentencesStyle();
 
@@ -137,23 +142,29 @@ function goToSentence($sentence)
 
 	setTimeout(function(){
 
-		bindScroll();
+		enableScroll();
 		lockSentencesStyle();
 
 	}, 800);
 
 }
 
-function bindScroll()
+function enableScroll()
 {
+
+	$('body').css("overflow", "auto");
 
 	$(document).on("scroll", function(){
 
-		scrollSentencesWrapper();
+		$('.quote-marker').css("opacity", 1);
+
+		disableOpacityTransition();
 
 		resetSentencesStyle();
 
-		setSentencesAppleStyle();
+		scrollSentencesWrapper();
+
+		setSentencesAppleStyle(.1, .9);
 
 		debounce(lockSentencesStyle, 300)();
 
@@ -161,8 +172,10 @@ function bindScroll()
 
 }
 
-function unbindScroll()
+function disableScroll()
 {
+
+	$('body').css("overflow", "hidden");
 
 	$(document).unbind("scroll");
 
@@ -181,7 +194,9 @@ $(document).ready(function(){
 		.css("padding-top", mouthOffsetTop + "px")
 		.css("padding-bottom", $(window).height() - mouthOffsetTop + "px");
 
-	bindScroll();
+	$('.quote-marker').css("top", "calc(" + mouthOffsetTop + "px + .8em)");
+
+	enableScroll();
 
 	$('.sentence').click(function(){
 

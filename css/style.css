@@ -79,6 +79,19 @@
 	-o-transform:translateX(-50%) translateY(-50%);
 	transform:translateX(-50%) translateY(-50%);
 }
+.quote-marker{
+	position:absolute;
+	right:.5em;
+	font-family:pixel;
+	font-weight:bold;
+	font-size:2em;
+	opacity:0;
+	-webkit-transition:opacity .5s ease;
+	-moz-transition:opacity .5s ease;
+	-ms-transition:opacity .5s ease;
+	-o-transition:opacity .5s ease;
+	transition:opacity .5s ease;
+}
 
 
 
@@ -100,15 +113,22 @@
 	font-family:pixel;
 	font-size:1.75em;
 	font-weight:bold;
+	-webkit-transition:padding .5s ease;
+	-moz-transition:padding .5s ease;
+	-ms-transition:padding .5s ease;
+	-o-transition:padding .5s ease;
+	transition:padding .5s ease;
+}
+.sentence.main{
+	opacity:1!important;
+	padding:1em 0!important;
+}
+.sentences-container.transition .sentence{
 	-webkit-transition:all .5s ease;
 	-moz-transition:all .5s ease;
 	-ms-transition:all .5s ease;
 	-o-transition:all .5s ease;
 	transition:all .5s ease;
-}
-.sentence.main{
-	opacity:1!important;
-	padding:1em 0!important;
 }
 .hidden-container .row [class*="col"] > *:first-letter, .sentence:first-letter{
 	text-transform:uppercase;

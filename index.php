@@ -150,6 +150,7 @@ switch($action){
 
 		<div class="col-xs-3 fit-h">
 			<img class="img-clement" src="img/clement.png">
+			<span class="quote-marker">></span>
 		</div>
 		<div class="col-xs-9 fit-h">
 			<div class="sentences-container fit-h">
