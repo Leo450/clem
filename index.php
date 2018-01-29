@@ -109,36 +109,7 @@ switch($action){
 					</div>
 
 				<?php } ?>
-				<?php foreach($quotes_data->quotes as $quote_index => $quote){ ?>
 
-					<div>
-						<?php echo $quote; ?>
-						<?php if($is_admin){ ?>
-							<a href="/mescouilles/delete/<?php echo $quote_index; ?>">x</a>
-						<?php } ?>
-					</div>
-
-				<?php } ?>
-				<?php foreach($quotes_data->quotes as $quote_index => $quote){ ?>
-
-					<div>
-						<?php echo $quote; ?>
-						<?php if($is_admin){ ?>
-							<a href="/mescouilles/delete/<?php echo $quote_index; ?>">x</a>
-						<?php } ?>
-					</div>
-
-				<?php } ?>
-				<?php foreach($quotes_data->quotes as $quote_index => $quote){ ?>
-
-					<div>
-						<?php echo $quote; ?>
-						<?php if($is_admin){ ?>
-							<a href="/mescouilles/delete/<?php echo $quote_index; ?>">x</a>
-						<?php } ?>
-					</div>
-
-				<?php } ?>
 			</div>
 		</div>
 
@@ -165,36 +136,6 @@ switch($action){
 
 					</div>
 
-					<?php foreach($quotes_data->quotes as $quote_index => $quote){ ?>
-
-						<div class="sentence">
-							<?php echo $quote; ?>
-							<?php if($is_admin){ ?>
-								<a href="/mescouilles/delete/<?php echo $quote_index; ?>">x</a>
-							<?php } ?>
-						</div>
-
-					<?php } ?>
-					<?php foreach($quotes_data->quotes as $quote_index => $quote){ ?>
-
-						<div class="sentence">
-							<?php echo $quote; ?>
-							<?php if($is_admin){ ?>
-								<a href="/mescouilles/delete/<?php echo $quote_index; ?>">x</a>
-							<?php } ?>
-						</div>
-
-					<?php } ?>
-					<?php foreach($quotes_data->quotes as $quote_index => $quote){ ?>
-
-						<div class="sentence">
-							<?php echo $quote; ?>
-							<?php if($is_admin){ ?>
-								<a href="/mescouilles/delete/<?php echo $quote_index; ?>">x</a>
-							<?php } ?>
-						</div>
-
-					<?php } ?>
 					<?php foreach($quotes_data->quotes as $quote_index => $quote){ ?>
 
 						<div class="sentence">
