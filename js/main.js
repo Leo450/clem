@@ -109,7 +109,7 @@ function lockSentencesStyle()
 	var $sentenceScrollWrapper = $('.sentences-scroll-wrapper');
 	$sentenceScrollWrapper.stop(true, true).animate({top: parseFloat($sentenceScrollWrapper.css("top")) + scrollCorrection + "px"}, 500);
 
-	setTimeout(enableScroll, 500);
+	setTimeout(enableScroll, 600);
 
 }
 
@@ -131,18 +131,17 @@ function goToSentence($sentence)
 		sentencesOffset = getSentenceOffsetTop($sentence) - mouthOffsetTop;
 	}
 
-	disableScroll();
-
 	resetSentencesStyle();
 
-	$(document).scrollTop($(document).scrollTop() + sentencesOffset);
+	$(document).scrollTop(currentScroll + sentencesOffset);
+
+	disableScroll();
 
 	var $sentenceScrollWrapper = $('.sentences-scroll-wrapper');
 	$sentenceScrollWrapper.stop(true, true).animate({top: parseFloat($sentenceScrollWrapper.css("top")) - sentencesOffset + "px"}, 1000, "easeInOutCubic");
 
 	setTimeout(function(){
 
-		enableScroll();
 		lockSentencesStyle();
 
 	}, 800);
@@ -152,9 +151,9 @@ function goToSentence($sentence)
 function enableScroll()
 {
 
-	$('body').css("overflow", "auto");
+	$(document).unbind("scroll").on("scroll", function(){
 
-	$(document).on("scroll", function(){
+		currentScroll = $(document).scrollTop();
 
 		$('.quote-marker').css("opacity", 1);
 
@@ -175,9 +174,13 @@ function enableScroll()
 function disableScroll()
 {
 
-	$('body').css("overflow", "hidden");
+	currentScroll = $(document).scrollTop();
 
-	$(document).unbind("scroll");
+	$(document).unbind("scroll").on("scroll", function(){
+
+		$(document).scrollTop(currentScroll);
+
+	});
 
 }
 
@@ -187,6 +190,7 @@ function disableScroll()
 const $imgClement = $('.img-clement');
 const mouthOffsetTop = $imgClement.offset().top - $(document).scrollTop() + $imgClement.height() / 12;
 const maxSentenceOffsetMouth = $(window).height() / 4;
+var currentScroll = null;
 
 $(document).ready(function(){
 
@@ -194,9 +198,7 @@ $(document).ready(function(){
 		.css("padding-top", mouthOffsetTop + "px")
 		.css("padding-bottom", $(window).height() - mouthOffsetTop + "px");
 
-	$('.quote-marker').css("top", "calc(" + mouthOffsetTop + "px + .8em)");
-
-	enableScroll();
+	$('.quote-marker').css("top", "calc(" + mouthOffsetTop + "px + .5em)");
 
 	$('.sentence').click(function(){
 
