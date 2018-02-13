@@ -16,11 +16,9 @@
     // getRandomQuote();
   };
 
-
   document.getElementById('dev-menu-home').onclick = function() { document.body.className = classHome; };
   document.getElementById('dev-menu-random').addEventListener('click', displayRandomQuote);
   document.getElementById('dev-menu-all').onclick = function() { document.body.className = classAll; };
-
 
 })();
 
@@ -30,7 +28,7 @@
     init: 'idle',
     transitions: [
       { name: 'troll',    from: 'idle',   to: 'tilt'  },
-      { name: 'joke',     from: 'tilt',   to: 'quote' }
+      { name: 'joke',     from: 'tilt',   to: 'cooldown' }
     ],
     methods: {
       onTroll: function() { console.log('putain là') },
@@ -40,7 +38,15 @@
 
   var clementImage = document.getElementById('clement');
   clementImage.addEventListener('click', function() {
-    clement.troll();
+    if (clement.state == 'idle') {
+      clement.troll();
+      console.log('clic');
+    }
+    else if (clement.state == 'tilt') {
+      clement.joke();
+      document.body.className = 'random';
+      console.log('clic clic');
+    };
   });
 
   console.log(clement.state);
